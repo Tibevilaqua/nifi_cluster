@@ -6,5 +6,8 @@ VERSION_NOT_FOUND = lambda registryUrl, bucketName, flowName, version : "Version
 VERSION_ALREADY_EXISTS_AT_DESTINATION_NIFI_REGISTRY = lambda registryUrl, bucketName, flowName, version : "Version {} already exists in registry {}, bucket {}, flow {}".format(version, registryUrl, bucketName, flowName)
 PROMOTION_EXECUTED_SUCCESSFULLY = lambda registryUrl, bucketName, flowName, version : "Version {} has been promoted successfully to the registry {}, bucket {}, flow {}".format(version, registryUrl, bucketName, flowName)
 
+PROMOTE_VERSION_START = "Starting version promotion process"
+PROMOTE_VERSION_FINISH = "Finishing version promotion process"
+
 # Constants
 VALIDATION_SUCCESSFUL = "Validation successful"

@@ -1,10 +1,10 @@
 import unittest
-from scripts.controller import ReplicateVersionController
+from scripts.controller import PromoteVersionController
 import os
 import logging
 from scripts.resources import Properties
 
-class SwapControlletTest(unittest.TestCase):
+class ReplicateVersionControllerTest(unittest.TestCase):
 
     def setUp(self):
         # Set-up
@@ -15,7 +15,7 @@ class SwapControlletTest(unittest.TestCase):
     """
     def test_run(self):
         logging.basicConfig(level=Properties.LOGGING_LEVEL, format=Properties.LOGGING_FORMAT, datefmt=Properties.LOGGING_DATE_FORMAT)
-        ReplicateVersionController.execute("qa")
+        PromoteVersionController.execute("qa")
 
 
 if __name__ == '__main__':
