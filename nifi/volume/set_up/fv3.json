@@ -1,0 +1,255 @@
+{
+  "snapshotMetadata" : {
+    "version" : 3,
+    "timestamp" : 1574914739047,
+    "author" : "anonymous",
+    "comments" : "3"
+  },
+  "flowContents" : {
+    "identifier" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a",
+    "name" : "ci-cd-test-process-group",
+    "comments" : "",
+    "position" : {
+      "x" : 444.0,
+      "y" : 242.0
+    },
+    "processGroups" : [ ],
+    "remoteProcessGroups" : [ ],
+    "processors" : [ {
+      "identifier" : "e8595d5d-8220-3e19-b9d0-fc994d771c41",
+      "name" : "PutFile",
+      "comments" : "",
+      "position" : {
+        "x" : 800.0,
+        "y" : 96.0
+      },
+      "bundle" : {
+        "group" : "org.apache.nifi",
+        "artifact" : "nifi-standard-nar",
+        "version" : "1.10.0"
+      },
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.PutFile",
+      "properties" : {
+        "Create Missing Directories" : "true",
+        "Directory" : "/tmp",
+        "Conflict Resolution Strategy" : "fail"
+      },
+      "propertyDescriptors" : {
+        "Group" : {
+          "name" : "Group",
+          "displayName" : "Group",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Owner" : {
+          "name" : "Owner",
+          "displayName" : "Owner",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Create Missing Directories" : {
+          "name" : "Create Missing Directories",
+          "displayName" : "Create Missing Directories",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Permissions" : {
+          "name" : "Permissions",
+          "displayName" : "Permissions",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Maximum File Count" : {
+          "name" : "Maximum File Count",
+          "displayName" : "Maximum File Count",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Last Modified Time" : {
+          "name" : "Last Modified Time",
+          "displayName" : "Last Modified Time",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Directory" : {
+          "name" : "Directory",
+          "displayName" : "Directory",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Conflict Resolution Strategy" : {
+          "name" : "Conflict Resolution Strategy",
+          "displayName" : "Conflict Resolution Strategy",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        }
+      },
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "executionNode" : "ALL",
+      "penaltyDuration" : "30 sec",
+      "yieldDuration" : "1 sec",
+      "bulletinLevel" : "WARN",
+      "runDurationMillis" : 0,
+      "concurrentlySchedulableTaskCount" : 1,
+      "autoTerminatedRelationships" : [ "success", "failure" ],
+      "scheduledState" : "ENABLED",
+      "componentType" : "PROCESSOR",
+      "groupIdentifier" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a"
+    }, {
+      "identifier" : "1a00de15-072d-3a09-ba8f-da72720f7067",
+      "name" : "GetFile",
+      "comments" : "",
+      "position" : {
+        "x" : 208.0,
+        "y" : 96.0
+      },
+      "bundle" : {
+        "group" : "org.apache.nifi",
+        "artifact" : "nifi-standard-nar",
+        "version" : "1.10.0"
+      },
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.GetFile",
+      "properties" : {
+        "Keep Source File" : "false",
+        "Minimum File Age" : "0 sec",
+        "Polling Interval" : "0 sec",
+        "Input Directory" : "/tmp",
+        "Batch Size" : "10",
+        "Minimum File Size" : "0 B",
+        "Ignore Hidden Files" : "true",
+        "Recurse Subdirectories" : "true",
+        "File Filter" : "[^\\.].*"
+      },
+      "propertyDescriptors" : {
+        "Keep Source File" : {
+          "name" : "Keep Source File",
+          "displayName" : "Keep Source File",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Minimum File Age" : {
+          "name" : "Minimum File Age",
+          "displayName" : "Minimum File Age",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Polling Interval" : {
+          "name" : "Polling Interval",
+          "displayName" : "Polling Interval",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Input Directory" : {
+          "name" : "Input Directory",
+          "displayName" : "Input Directory",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Maximum File Age" : {
+          "name" : "Maximum File Age",
+          "displayName" : "Maximum File Age",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Batch Size" : {
+          "name" : "Batch Size",
+          "displayName" : "Batch Size",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Maximum File Size" : {
+          "name" : "Maximum File Size",
+          "displayName" : "Maximum File Size",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Minimum File Size" : {
+          "name" : "Minimum File Size",
+          "displayName" : "Minimum File Size",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Ignore Hidden Files" : {
+          "name" : "Ignore Hidden Files",
+          "displayName" : "Ignore Hidden Files",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Recurse Subdirectories" : {
+          "name" : "Recurse Subdirectories",
+          "displayName" : "Recurse Subdirectories",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "File Filter" : {
+          "name" : "File Filter",
+          "displayName" : "File Filter",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        },
+        "Path Filter" : {
+          "name" : "Path Filter",
+          "displayName" : "Path Filter",
+          "identifiesControllerService" : false,
+          "sensitive" : false
+        }
+      },
+      "schedulingPeriod" : "10 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "executionNode" : "ALL",
+      "penaltyDuration" : "30 sec",
+      "yieldDuration" : "1 sec",
+      "bulletinLevel" : "WARN",
+      "runDurationMillis" : 0,
+      "concurrentlySchedulableTaskCount" : 1,
+      "autoTerminatedRelationships" : [ ],
+      "scheduledState" : "ENABLED",
+      "componentType" : "PROCESSOR",
+      "groupIdentifier" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a"
+    } ],
+    "inputPorts" : [ ],
+    "outputPorts" : [ ],
+    "connections" : [ {
+      "identifier" : "9a5ca4df-e0de-326b-9e8d-afb160430672",
+      "name" : "",
+      "source" : {
+        "id" : "1a00de15-072d-3a09-ba8f-da72720f7067",
+        "type" : "PROCESSOR",
+        "groupId" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a",
+        "name" : "GetFile",
+        "comments" : ""
+      },
+      "destination" : {
+        "id" : "e8595d5d-8220-3e19-b9d0-fc994d771c41",
+        "type" : "PROCESSOR",
+        "groupId" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a",
+        "name" : "PutFile",
+        "comments" : ""
+      },
+      "labelIndex" : 1,
+      "zIndex" : 0,
+      "selectedRelationships" : [ "success" ],
+      "backPressureObjectThreshold" : 10000,
+      "backPressureDataSizeThreshold" : "1 GB",
+      "flowFileExpiration" : "0 sec",
+      "prioritizers" : [ ],
+      "bends" : [ ],
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "partitioningAttribute" : "",
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "componentType" : "CONNECTION",
+      "groupIdentifier" : "a6417c20-80ee-3585-9e35-a88c2ff4f99a"
+    } ],
+    "labels" : [ ],
+    "funnels" : [ ],
+    "controllerServices" : [ ],
+    "variables" : { },
+    "componentType" : "PROCESS_GROUP"
+  },
+  "externalControllerServices" : { },
+  "parameterContexts" : { },
+  "flowEncodingVersion" : "1.0"
+}

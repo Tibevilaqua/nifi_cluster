@@ -1,0 +1,1 @@
+docker exec -it nifi_cluster_nifi_1 /bin/bash

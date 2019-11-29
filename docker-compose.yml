@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  nifi_registry: 
+    build: nifi_registry 
+    ports: 
+      - 18080:18080 
+  nifi_registry_second_cluster: 
+    build: nifi_registry_second_cluster 
+    ports: 
+      - 18081:18080 
+  nifi: 
+    build: nifi
+    volumes:
+      - ./nifi/volume:/opt/volumes
+    links:
+     - "nifi_second_cluster:nifi_second_cluster"
+     - "nifi_registry:nifi_registry"
+     - "nifi_registry_second_cluster:nifi_registry_second_cluster"
+    ports:
+      - 8080:8080
+  nifi_second_cluster: 
+    build: nifi_second_cluster
+    volumes:
+      - ./nifi_second_cluster/volume:/opt/volumes
+    links:
+     - "nifi_registry_second_cluster:nifi_registry_second_cluster"
+    ports: 
+      - 8081:8080
+
+volumes:
+  volume:

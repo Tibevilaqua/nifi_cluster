@@ -1,12 +1,12 @@
-#What is this
+# What is this
 This is a junction of Nifi and Nifi Registry servers put together in containers to facilitate and speed up the development of CI/CD pipeline features.
 
 
-#Assumptions
+## Assumptions
 You know what you're doing and do not need someone to hold your hand while using this implementation
 
 
-#Concepts
+## Concepts
 
 There are 2 groups of instances. nifi & nifi_registry AND nifi_second_cluster & nifi_registry_second_cluster. They are meant to be independent to simulate different environments, say non-prod and prod. Additionally, all commands are triggered from the nifi container just because I didn't want to create another container to be used as the "CI/CD agent box".
 
