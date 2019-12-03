@@ -2,6 +2,8 @@ from scripts.resources import Properties
 
 # NIFI Registry commands
 
+IGNORE_JAVA_HOME = " | grep -vi JAVA_HOME "
+
 def getListBucketsCommand(registryURL, bucketName):
     return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL + " | grep " + bucketName + " | awk '{print $3}'"
 
@@ -19,3 +21,15 @@ def getImportFlowVersionCommand(registryURL, flowId, importToFilePathName):
 
 def getListFlowVersionCommand(registryURL, flowId, version):
     return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flow-versions -u " + registryURL + " -f " + flowId + " | awk '{print $1}' "
+
+def getCreateBucketCommand(registryURL, bucketName):
+    # cli.sh registry create-bucket -u http://nifi_registry:18080 -bn test123
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " create-bucket -u " + registryURL + " -bn " + bucketName + IGNORE_JAVA_HOME
+
+def getCreateFlowCommand(registryURL, bucketId, flowName):
+    # cli.sh registry create-flow -b bee62f19-a3d5-4b2a-839d-a8fb692208d0 -u http://nifi_registry:18080 -fn ccc
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " create-flow -u " + registryURL + " -b " + bucketId + " -fn " + flowName + IGNORE_JAVA_HOME
+
+def getDoesInstanceExistCommand(registryURL):
+    # cli.sh registry list-buckets -u http://localhost:18080
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL

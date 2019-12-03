@@ -3,7 +3,6 @@ import logging
 from scripts.infrastructure import CommandsUtils
 
 def getBucketId(registryURL, bucketName):
-
     command = CommandsUtils.getListBucketsCommand(registryURL, bucketName)
     return executeCommand(command)
 
@@ -23,7 +22,23 @@ def listFlowVersion(registryURL, flowId, version):
     command = CommandsUtils.getListFlowVersionCommand(registryURL, flowId, version)
     return executeCommand(command, version)
 
+def createBucket(registryURL, bucketName):
+    command = CommandsUtils.getCreateBucketCommand(registryURL, bucketName)
+    return executeCommand(command)
+
+def createFlow(registryURL, bucketId, flowName):
+    command = CommandsUtils.getCreateFlowCommand(registryURL, bucketId, flowName)
+    return executeCommand(command)
+
+def doesInstanceExist(registryURL):
+    command = CommandsUtils.getDoesInstanceExistCommand(registryURL)
+    status, text = executeCommand(command)
+    return True if status == 0 else False
+
 def executeCommand(command, filter=False):
+
+    logging.debug("Command being executed: " + command)
+
     status, text = commands.getstatusoutput(command)
 
     # This if will never occur because the "| grep and | awk" commands after the API call will always return "0" even though the first API fails.
@@ -33,7 +48,7 @@ def executeCommand(command, filter=False):
         logging.error("Error while trying to execute command: " + command)
         logging.error(text)
         logging.error(status)
-        return 1
+        return 1, "Error while trying to execute command: " + command
 
     if filter:
         index = text.find(filter)

@@ -4,7 +4,7 @@ import os
 import logging
 from scripts.resources import Properties
 
-class ReplicateVersionControllerTest(unittest.TestCase):
+class PromoteVersionControllerTest(unittest.TestCase):
 
     def setUp(self):
         # Set-up

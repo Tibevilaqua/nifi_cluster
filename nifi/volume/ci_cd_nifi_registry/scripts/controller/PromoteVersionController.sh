@@ -1,2 +1,2 @@
 export PYTHONPATH=$(pwd)
-python controller/PromoteVersionController.py "$@"
+python scripts/controller/PromoteVersionController.py "$@"

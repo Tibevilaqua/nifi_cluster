@@ -15,7 +15,7 @@ def execute(environment):
         if validationStatusResult == 0:
             NifiRegistryApplication.promoteVersionToFlowInBucket(eachConfig.get(properties.RDC_registryUrlFrom), eachConfig.get(properties.RDC_registryUrlTo), eachConfig.get(properties.RDC_bucketName), eachConfig.get(properties.RDC_flowName), str(eachConfig.get(properties.RDC_registryVersion)))
         else:
-            logging.error(validationTextResult)
+            logging.info(validationTextResult)
 
     logging.info(Messages.PROMOTE_VERSION_FINISH)
 
