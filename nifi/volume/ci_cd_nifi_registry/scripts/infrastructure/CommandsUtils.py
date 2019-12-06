@@ -5,13 +5,13 @@ from scripts.resources import Properties
 IGNORE_JAVA_HOME = " | grep -vi JAVA_HOME "
 
 def getListBucketsCommand(registryURL, bucketName):
-    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL + " | grep " + bucketName + " | awk '{print $3}'"
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL + IGNORE_JAVA_HOME+ " | grep -w " + bucketName + " | awk '{print $3}'"
 
 def getListFlowsCommand(registryURL, bucketId, flowName):
-    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flows -u " + registryURL + " -b " + bucketId + " | grep " + flowName + " | awk '{print $3}'"
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flows -u " + registryURL + " -b " + bucketId + IGNORE_JAVA_HOME + " | grep -w " + flowName + " | awk '{print $3}' "
 
 def getListFlowVersionsCommand(registryURL, flowId):
-    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flow-versions -u " + registryURL + " -f " + flowId
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flow-versions -u " + registryURL + " -f " + flowId + IGNORE_JAVA_HOME
 
 def getExportFlowVersionCommand(registryURL, flowId, version, exportToFilePathName):
     return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " export-flow-version -u " + registryURL + " -f " + flowId + " -fv " + version + " -o " + exportToFilePathName
@@ -19,8 +19,8 @@ def getExportFlowVersionCommand(registryURL, flowId, version, exportToFilePathNa
 def getImportFlowVersionCommand(registryURL, flowId, importToFilePathName):
     return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " import-flow-version -u " + registryURL + " -f " + flowId + " -i " + importToFilePathName
 
-def getListFlowVersionCommand(registryURL, flowId, version):
-    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flow-versions -u " + registryURL + " -f " + flowId + " | awk '{print $1}' "
+def getListFlowVersionCommand(registryURL, flowId):
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-flow-versions -u " + registryURL + " -f " + flowId + IGNORE_JAVA_HOME + " | awk '{print $1}' "
 
 def getCreateBucketCommand(registryURL, bucketName):
     # cli.sh registry create-bucket -u http://nifi_registry:18080 -bn test123
@@ -32,4 +32,4 @@ def getCreateFlowCommand(registryURL, bucketId, flowName):
 
 def getDoesInstanceExistCommand(registryURL):
     # cli.sh registry list-buckets -u http://localhost:18080
-    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL
+    return Properties.NIFI_REGISTRY_COMMAND_PREFIX + " list-buckets -u " + registryURL + IGNORE_JAVA_HOME

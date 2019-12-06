@@ -5,30 +5,30 @@ from scripts.infrastructure import MessageloggingUtils
 from scripts.resources import Messages
 import logging
 
-def promoteVersionToFlowInBucket(registryUrlFrom, registryUrlTo, bucketName, flowName, version):
+def promoteVersionToFlowInBucket(registryUrlFrom, bucketNameFrom, flowNameFrom, registryUrlTo, bucketNameTo, flowNameTo, version):
 
     try:
         OSRepository.createDir(Properties.TEMP_FOLDER_TO_BE_CREATED_DURING_EXECUTION)
 
         # Get BucketId and FlowId from the origin NIFI registry
-        bucketIdFromCallStatus, flowIdFromCallStatus,  bucketId, flowId = getFlowIdAndBucketId(registryUrlFrom, bucketName, flowName)
+        bucketIdFromCallStatus, flowIdFromCallStatus,  bucketId, flowId = getFlowIdAndBucketId(registryUrlFrom, bucketNameFrom, flowNameFrom)
 
         NifiRegistryRepository.exportFlowVersion(registryUrlFrom, flowId, version, Properties.TEMP_FOLDER_AND_FLOW_FILE_TO_BE_CREATED_DURING_EXECUTION)
 
         # Get BucketId and FlowId from the destination NIFI registry
-        bucketIdToCallStatus, flowIdToCallStatus, bucketId, flowId = getFlowIdAndBucketId(registryUrlTo, bucketName, flowName)
+        bucketIdToCallStatus, flowIdToCallStatus, bucketId, flowId = getFlowIdAndBucketId(registryUrlTo, bucketNameTo, flowNameTo)
 
         # CreateBucket if it does not yet exist at the destination
         if not doesItExist(bucketIdToCallStatus, bucketId):
-            bucketIdToCallStatus, bucketId = createBucket(registryUrlTo, bucketName, False)
+            bucketIdToCallStatus, bucketId = createBucket(registryUrlTo, bucketNameTo, False)
 
         # CreateFlow if it does not yet exist at the destination
         if not doesItExist(flowIdToCallStatus, flowId) and bucketId:
-            flowIdFromCallStatus, flowId = createFlow(registryUrlTo, bucketId, flowName, bucketName, False)
+            flowIdFromCallStatus, flowId = createFlow(registryUrlTo, bucketId, flowNameTo, bucketNameTo, False)
 
         NifiRegistryRepository.importFlowVersion(registryUrlTo, flowId, Properties.TEMP_FOLDER_AND_FLOW_FILE_TO_BE_CREATED_DURING_EXECUTION)
 
-        logging.info(Messages.PROMOTION_EXECUTED_SUCCESSFULLY(registryUrlTo, bucketName, flowName, version))
+        logging.info(Messages.PROMOTION_EXECUTED_SUCCESSFULLY(registryUrlTo, bucketNameTo, flowNameTo, version))
     finally:
         OSRepository.deleteDir(Properties.TEMP_FOLDER_TO_BE_CREATED_DURING_EXECUTION)
 
@@ -66,38 +66,38 @@ def createFlow(registryUrl, bucketId, flowName, bucketName, shouldVerifyIfFlowEx
 
     return flowIdCallStatus, flowId
 
-def validateIntegrationConsistency(registryUrlFrom, registryUrlTo, bucketName, flowName, version):
+def validateIntegrationConsistency(registryUrlFrom, bucketNameFrom, flowNameFrom, registryUrlTo, bucketNameTo, flowNameTo, version):
 
     if not NifiRegistryRepository.doesInstanceExist(registryUrlFrom):
         logging.info(Messages.REGISTRY_DOES_NOT_EXISTS(registryUrlFrom))
-        return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketName, flowName, version)
+        return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketNameFrom, flowNameFrom, version)
     if not NifiRegistryRepository.doesInstanceExist(registryUrlTo):
         logging.info(Messages.REGISTRY_DOES_NOT_EXISTS(registryUrlTo))
-        return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketName, flowName, version)
+        return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketNameTo, flowNameTo, version)
 
     # Get BucketId and FlowId from the origin NIFI registry
-    bucketIdFromCallStatus, flowIdFromCallStatus, bucketIdFrom, flowIdFrom = getFlowIdAndBucketId(registryUrlFrom, bucketName, flowName)
+    bucketIdFromCallStatus, flowIdFromCallStatus, bucketIdFrom, flowIdFrom = getFlowIdAndBucketId(registryUrlFrom, bucketNameFrom, flowNameFrom)
 
     # Get BucketId and FlowId from the destination NIFI registry
-    bucketIdToCallStatus, flowIdToCallStatus, bucketIdTo, flowIdTo = getFlowIdAndBucketId(registryUrlTo, bucketName,flowName)
+    bucketIdToCallStatus, flowIdToCallStatus, bucketIdTo, flowIdTo = getFlowIdAndBucketId(registryUrlTo, bucketNameTo, flowNameTo)
 
     versionStatusFrom, versionTextFrom = NifiRegistryRepository.listFlowVersion(registryUrlFrom, flowIdFrom, version)
 
     # Validating if any of the values do not exist on the origin nifi registry
     if bucketIdFromCallStatus != 0 or flowIdFromCallStatus != 0 or versionStatusFrom != 0:
-        MessageloggingUtils.logInfoIfNotZero(bucketIdFromCallStatus, Messages.BUCKET_NOT_FOUND(bucketName, registryUrlFrom))
-        MessageloggingUtils.logInfoIfNotZero(flowIdFromCallStatus, Messages.FLOW_NOT_FOUND(flowName, registryUrlFrom))
-        MessageloggingUtils.logInfoIfNotZero(versionStatusFrom, Messages.VERSION_NOT_FOUND(registryUrlFrom, bucketName, flowName, version))
-        return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketName, flowName, version)
+        MessageloggingUtils.logInfoIfNotZero(bucketIdFromCallStatus, Messages.BUCKET_NOT_FOUND(bucketNameFrom, registryUrlFrom))
+        MessageloggingUtils.logInfoIfNotZero(flowIdFromCallStatus, Messages.FLOW_NOT_FOUND(flowNameFrom, registryUrlFrom))
+        MessageloggingUtils.logInfoIfNotZero(versionStatusFrom, Messages.VERSION_NOT_FOUND(registryUrlFrom, bucketNameFrom, flowNameFrom, version))
+        return 1, Messages.SKIPPING_LINE(registryUrlFrom, bucketNameFrom, flowNameFrom, registryUrlTo, bucketNameTo, flowNameTo, version)
 
     # Validating if the version already exists in the destination nifi registry
-    if bucketIdToCallStatus == 0 or flowIdToCallStatus == 0:
+    if bucketIdToCallStatus == 0 and flowIdToCallStatus == 0:
         versionStatusTo, versionTextTo = NifiRegistryRepository.listFlowVersion(registryUrlTo, flowIdTo, version)
 
 
         if versionStatusTo == 0 and versionTextTo == version:
-            logging.info(Messages.VERSION_ALREADY_EXISTS_AT_DESTINATION_NIFI_REGISTRY(registryUrlTo, bucketName, flowName,version))
-            return 1, Messages.SKIPPING_LINE(registryUrlFrom, registryUrlTo, bucketName, flowName, version)
+            logging.info(Messages.VERSION_ALREADY_EXISTS_AT_DESTINATION_NIFI_REGISTRY(registryUrlTo, bucketNameTo, flowNameTo,version))
+            return 1, Messages.SKIPPING_LINE(registryUrlFrom, bucketNameFrom, flowNameFrom, registryUrlTo, bucketNameTo, flowNameTo, version)
 
 
     return 0, Messages.VALIDATION_SUCCESSFUL

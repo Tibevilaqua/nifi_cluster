@@ -21,9 +21,11 @@ def validateAndLoadFile(environment, csvFile):
 
                 fieldNameAndValidationList = {
                         "registryUrlFrom": isRegistryUrlFromInvalidIfPresent,
+                        "bucketNameFrom": isBucketNameFromInvalidIfPresent,
+                        "flowNameFrom": isFlowNameFromInvalidIfPresent,
                         "registryUrlTo": isRegistryUrlToInvalidIfPresent,
-                        "bucketName": isBucketNameInvalidIfPresent,
-                        "flowName": isFlowNameInvalidIfPresent,
+                        "bucketNameTo": isBucketNameToInvalidIfPresent,
+                        "flowNameTo": isFlowNameToInvalidIfPresent,
                         "version": isVersionInvalidIfPresent
                 }
 
@@ -49,14 +51,20 @@ def validateAndLoadFile(environment, csvFile):
 def isRegistryUrlFromInvalidIfPresent(row):
     return attributesUtils.isValueNotPresent(row["registryUrlFrom"]) or attributesUtils.verifyIfValueIsInvalid(row["registryUrlFrom"]) or attributesUtils.isThereAnySpace(row["registryUrlFrom"])
 
+def isBucketNameFromInvalidIfPresent(row):
+    return attributesUtils.isValueNotPresent(row["bucketNameFrom"]) or attributesUtils.verifyIfValueIsInvalid(row["bucketNameFrom"]) or attributesUtils.isThereAnySpace(row["bucketNameFrom"])
+
+def isFlowNameFromInvalidIfPresent(row):
+    return attributesUtils.isValueNotPresent(row["flowNameFrom"]) or attributesUtils.verifyIfValueIsInvalid(row["flowNameFrom"]) or attributesUtils.isThereAnySpace(row["flowNameFrom"])
+
 def isRegistryUrlToInvalidIfPresent(row):
     return attributesUtils.isValueNotPresent(row["registryUrlTo"]) or attributesUtils.verifyIfValueIsInvalid(row["registryUrlTo"]) or attributesUtils.isThereAnySpace(row["registryUrlTo"])
 
-def isBucketNameInvalidIfPresent(row):
-    return attributesUtils.isValueNotPresent(row["bucketName"]) or attributesUtils.verifyIfValueIsInvalid(row["bucketName"]) or attributesUtils.isThereAnySpace(row["bucketName"])
+def isBucketNameToInvalidIfPresent(row):
+    return attributesUtils.isValueNotPresent(row["bucketNameTo"]) or attributesUtils.verifyIfValueIsInvalid(row["bucketNameTo"]) or attributesUtils.isThereAnySpace(row["bucketNameTo"])
 
-def isFlowNameInvalidIfPresent(row):
-    return attributesUtils.isValueNotPresent(row["flowName"]) or attributesUtils.verifyIfValueIsInvalid(row["flowName"]) or attributesUtils.isThereAnySpace(row["flowName"])
+def isFlowNameToInvalidIfPresent(row):
+    return attributesUtils.isValueNotPresent(row["flowNameTo"]) or attributesUtils.verifyIfValueIsInvalid(row["flowNameTo"]) or attributesUtils.isThereAnySpace(row["flowNameTo"])
 
 def isVersionInvalidIfPresent(row):
     return attributesUtils.isValueNotPresent(row["version"]) or attributesUtils.isThereAnySpace(row["version"])

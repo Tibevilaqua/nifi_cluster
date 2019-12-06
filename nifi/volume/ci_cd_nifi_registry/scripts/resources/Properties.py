@@ -11,13 +11,15 @@ TEMP_FOLDER_AND_FLOW_FILE_TO_BE_CREATED_DURING_EXECUTION = TEMP_FOLDER_TO_BE_CRE
 # Registry Deployment Controllet Model (Object)
 REGISTRY_DEPLOYMENT_CONTROLLER = "registry_deployment_controller.csv"
 RDC_registryUrlFrom = "registryUrlFrom"
+RDC_bucketNameFrom = "bucketNameFrom"
+RDC_flowNameFrom = "flowNameFrom"
 RDC_registryUrlTo = "registryUrlTo"
-RDC_bucketName = "bucketName"
-RDC_flowName = "flowName"
+RDC_bucketNameTo = "bucketNameTo"
+RDC_flowNameTo = "flowNameTo"
 RDC_registryVersion = "version"
 
 
 #Logging
-LOGGING_LEVEL = logging.DEBUG
+LOGGING_LEVEL = logging.INFO
 LOGGING_FORMAT = "%(levelname)s - %(asctime)s - %(message)s"
 LOGGING_DATE_FORMAT = "%H:%M:%S"

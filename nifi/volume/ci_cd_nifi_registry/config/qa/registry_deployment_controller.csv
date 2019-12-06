@@ -1,3 +1,2 @@
-registryUrlFrom,registryUrlTo,bucketName,flowName,version
-http://localhost:18080,http://localhost:18081,my_new_bucket,my_new_flow,2
-http://localhost:18080,http://localhost:18081,my_new_bucket,my_new_flow,2
+registryUrlFrom,bucketNameFrom,flowNameFrom,registryUrlTo,bucketNameTo,flowNameTo,version
+http://localhost:18080,my_new_bucket8,my_new_flow,http://localhost:18080,my_new_bucket2,my_new_flow3,1

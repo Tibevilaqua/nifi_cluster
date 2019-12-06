@@ -19,7 +19,7 @@ def importFlowVersion(registryURL, flowId, exportToFilePathName):
     return executeCommand(command)
 
 def listFlowVersion(registryURL, flowId, version):
-    command = CommandsUtils.getListFlowVersionCommand(registryURL, flowId, version)
+    command = CommandsUtils.getListFlowVersionCommand(registryURL, flowId)
     return executeCommand(command, version)
 
 def createBucket(registryURL, bucketName):

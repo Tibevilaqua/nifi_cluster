@@ -10,10 +10,10 @@ from scripts.resources import Messages
 def execute(environment):
     logging.info(Messages.PROMOTE_VERSION_START)
     for eachConfig in fileImporterUtils.validateAndLoadFile(environment, properties.REGISTRY_DEPLOYMENT_CONTROLLER):
-        validationStatusResult, validationTextResult = NifiRegistryApplication.validateIntegrationConsistency(eachConfig.get(properties.RDC_registryUrlFrom), eachConfig.get(properties.RDC_registryUrlTo), eachConfig.get(properties.RDC_bucketName), eachConfig.get(properties.RDC_flowName), str(eachConfig.get(properties.RDC_registryVersion)))
+        validationStatusResult, validationTextResult = NifiRegistryApplication.validateIntegrationConsistency(eachConfig.get(properties.RDC_registryUrlFrom), eachConfig.get(properties.RDC_bucketNameFrom), eachConfig.get(properties.RDC_flowNameFrom), eachConfig.get(properties.RDC_registryUrlTo), eachConfig.get(properties.RDC_bucketNameTo), eachConfig.get(properties.RDC_flowNameTo), str(eachConfig.get(properties.RDC_registryVersion)))
 
         if validationStatusResult == 0:
-            NifiRegistryApplication.promoteVersionToFlowInBucket(eachConfig.get(properties.RDC_registryUrlFrom), eachConfig.get(properties.RDC_registryUrlTo), eachConfig.get(properties.RDC_bucketName), eachConfig.get(properties.RDC_flowName), str(eachConfig.get(properties.RDC_registryVersion)))
+            NifiRegistryApplication.promoteVersionToFlowInBucket(eachConfig.get(properties.RDC_registryUrlFrom), eachConfig.get(properties.RDC_bucketNameFrom), eachConfig.get(properties.RDC_flowNameFrom), eachConfig.get(properties.RDC_registryUrlTo), eachConfig.get(properties.RDC_bucketNameTo), eachConfig.get(properties.RDC_flowNameTo), str(eachConfig.get(properties.RDC_registryVersion)))
         else:
             logging.info(validationTextResult)
 
