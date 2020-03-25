@@ -1,1 +1,1 @@
-docker exec -it nifi_cluster_nifi_registry_1 /bin/bash
+docker exec -it nifi_and_registry_nifi_registry_1 /bin/bash
